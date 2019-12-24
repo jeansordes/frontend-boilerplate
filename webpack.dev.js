@@ -2,12 +2,13 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
-    devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),
+    entry: './src/js/index.ts',
+    devtool: 'inline-source-map',
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'main.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
@@ -20,6 +21,14 @@ module.exports = {
                     'sass-loader',
                 ],
             },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            }
         ],
-    }
+    },
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),
+    },
 };
